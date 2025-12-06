@@ -588,7 +588,6 @@ static void setup_iomux_fec(int fec_id)
 		imx_iomux_v3_setup_multiple_pads(fec2_pads,
 						 ARRAY_SIZE(fec2_pads));
 		//复位FEC2
-		printf("Reset ENET2 PHY\n");
 		gpio_direction_output(ENET2_RESET, 1);
 		gpio_set_value(ENET2_RESET, 0);
 		mdelay(10);
