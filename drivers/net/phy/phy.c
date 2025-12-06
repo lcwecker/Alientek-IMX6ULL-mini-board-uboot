@@ -503,6 +503,9 @@ int phy_init(void)
 #ifdef CONFIG_PHY_VITESSE
 	phy_vitesse_init();
 #endif
+#ifdef CONFIG_PHY_CORECHIPS
+	phy_corechips_init();
+#endif
 
 	return 0;
 }
@@ -671,7 +674,13 @@ static struct phy_device *create_phy_by_mask(struct mii_dev *bus,
 		int r = get_phy_id(bus, addr, devad, &phy_id);
 		/* If the PHY ID is mostly f's, we didn't find anything */
 		if (r == 0 && (phy_id & 0x1fffffff) != 0x1fffffff)
+		{
 			return phy_device_create(bus, addr, phy_id, interface);
+		}
+		else
+		{
+			printf("addr=%d, phy_id=%x\n", addr, phy_id);
+		}
 		phy_mask &= ~(1 << addr);
 	}
 	return NULL;
