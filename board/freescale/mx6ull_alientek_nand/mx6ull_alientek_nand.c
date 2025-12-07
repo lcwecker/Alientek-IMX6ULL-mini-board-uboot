@@ -581,7 +581,7 @@ static void setup_iomux_fec(int fec_id)
 {
 	if (fec_id == 0)
 	{
-		printf("NO FEC1!\n");
+		printf("NO FEC0!\n");
 	}
 	else
 	{
@@ -592,12 +592,22 @@ static void setup_iomux_fec(int fec_id)
 		gpio_set_value(ENET2_RESET, 0);
 		mdelay(10);
 		gpio_set_value(ENET2_RESET, 1);
-		mdelay(20); //注：SR8201F复位较慢，要delay一段时间，才能正常初始化
+		mdelay(20); //warn: SR8201F复位较慢，要delay一段时间，才能正常初始化
 	}
 }
 
 int board_eth_init(bd_t *bis)
 {
+#ifdef CONFIG_NET_RANDOM_ETHADDR
+	//设置MAC地址环境变量
+	unsigned char env_enetaddr[6] = {0};
+	if (!eth_getenv_enetaddr("ethaddr", env_enetaddr))
+	{
+		net_random_ethaddr(env_enetaddr);
+		eth_setenv_enetaddr("ethaddr", env_enetaddr);
+	}
+#endif
+
 	setup_iomux_fec(CONFIG_FEC_ENET_DEV);
 
 	return fecmxc_initialize_multi(bis, CONFIG_FEC_ENET_DEV,

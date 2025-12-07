@@ -344,8 +344,6 @@
 #define CONFIG_PHYLIB
 #define CONFIG_PHY_CORECHIPS
 #endif
-#define CONFIG_LIB_RAND //支持随机MAC地址
-#define CONFIG_NET_RANDOM_ETHADDR
 
 #define CONFIG_IMX_THERMAL
 
