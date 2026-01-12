@@ -1,5 +1,7 @@
 #!/bin/bash
-function init_clangd()
+set -e
+
+init_clangd()
 {
     rm -rf .cache
     rm -f compile_commands.json
@@ -10,5 +12,5 @@ export ARCH=arm
 export CROSS_COMPILE=arm-linux-gnueabihf-
 make distclean
 make mx6ull_alientek_nand_defconfig
-# init_clangd
+#init_clangd
 make -j11
