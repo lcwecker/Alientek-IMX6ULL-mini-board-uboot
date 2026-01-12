@@ -13,4 +13,4 @@ export CROSS_COMPILE=arm-linux-gnueabihf-
 make distclean
 make mx6ull_alientek_nand_defconfig
 #init_clangd
-make -j11
+make -j"$(nproc)"

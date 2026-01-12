@@ -20,7 +20,6 @@
 *.bin
 *.patch
 *.cfgtmp
-*.bmp
 *.tga
 
 # host programs on Cygwin
