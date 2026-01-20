@@ -25,7 +25,6 @@
 #include <netdev.h>
 #include <power/pmic.h>
 #include <power/pfuze3000_pmic.h>
-#include "../common/pfuze.h"
 #include <usb.h>
 #include <usb/ehci-fsl.h>
 #include <asm/imx-common/video.h>
@@ -233,7 +232,7 @@ void ldo_mode_set(int ldo_bypass)
 
 int dram_init(void)
 {
-	gd->ram_size = imx_ddr_size();
+	gd->ram_size = /* imx_ddr_size() */PHYS_SDRAM_SIZE;
 
 	return 0;
 }
@@ -783,7 +782,7 @@ int board_late_init(void)
 #endif
 
 #ifdef CONFIG_ENV_VARS_UBOOT_RUNTIME_CONFIG
-	setenv("board_name", "EVK");
+	setenv("board_name", "ALIENTEK");
 
 	if (is_mx6ull_9x9_evk())
 		setenv("board_rev", "9X9");
@@ -805,7 +804,7 @@ int checkboard(void)
 	if (is_mx6ull_9x9_evk())
 		puts("Board: MX6ULL 9x9 EVK\n");
 	else
-		puts("Board: MX6ULL 14x14 EVK\n");
+		puts("Board: ALIENTEK MX6ULL NAND\n");
 
 	return 0;
 }
